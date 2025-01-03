@@ -1,0 +1,1950 @@
+<!-- saved from url=(0021)http://192.168.1.201/ -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
+    <title>AutoL LiDAR</title>
+    <link href="./css/body_grid.css" rel="stylesheet" type="text/css">
+    <link href="./css/default_tag.css" rel="stylesheet" type="text/css">
+    <link href="./css/tab_view.css" rel="stylesheet" type="text/css">
+    <link href="./css/content_view.css" rel="stylesheet" type="text/css">
+    <link href="./css/animation.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="./jquery/jquery-3.5.1.min.js"></script>
+    <!-- <script src="./jquery/jquery.inputmask.min.js"></script> -->
+    <script type="text/javascript" src="./js/main.js"></script>
+
+    <link href="./css/tab.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="./js/tab.js"></script>
+
+    <link href="./css/table.css" rel="stylesheet" type="text/css">
+
+    <link href="./css/button.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="./js/control.js"></script>
+
+
+    <!-- <script type="text/javascript" src="./js/mask.js"></script> -->
+
+
+</head>
+<style>
+    #progress {
+        position: relative;
+        width: 300px;
+        border: 1px;
+        /* solid : #ddd; */
+        padding: 1px;
+        border-radius: 3px;
+    }
+
+    #bar {
+        background-color: #b4f5b4;
+        width: 0%;
+        height: 20px;
+        border-radius: 3px;
+    }
+
+    #percent {
+        position: absolute;
+        display: inline-block;
+        top: 3px;
+        left: 48%
+    }
+</style>
+
+<body>
+    <!-- <header>
+        <div class="header_background" id="section1">
+            <img src="../web_images/AutoL_CI_Dark.png" alt="AutoL CI" width=200>
+        </div>
+    </header> -->
+    <!-- <div class="margin_div"></div> -->
+     
+    <div id="popup" class="hide">
+        <div class="content" style="display: inline-block; background-color: white;">
+            <ul class="horizontal" style=" margin-top: 5px;">
+                <li class="subtitle_li">Password : </li>
+                <input type="password" class="ip_input" id="password" style="width: 200px;"
+                    onkeydown="javascript:if(event.keyCode==13) {checkpwd();}" />
+                <button onclick="checkpwd()" style="margin-left: 10px;">확인</button>
+            </ul>
+        </div>
+    </div>
+    <div class="grid_wrapper">
+        <div class="tab_view_grid">
+            <div style="background-color: 103047; height: calc(100% + 50px);">
+                <div class="model_name_div">
+                    <a id="logo" href="./index.html"><img src="./web_images/adm_logo.jpg" alt="AutoL CI" style="display: inline-block; position: relative; z-index: 1;     
+                        padding: 10px;     
+                        margin: 0px; "></a>
+                </div>
+                <div class="tab">
+                    <span data-button="tab1" class="current">
+                        <a class="sub_tab_item" data-img="info" href="#" onclick="GetSysInfo(); closePopup();">System
+                            Information</a>
+                    </span>
+                    <span data-button="tab2" class="def">
+                        <a class="sub_tab_item2" href="#" onclick="GetHWInfo(); closePopup();">H/W Configuration</a>
+                    </span>
+                    <span data-button="tab3" class="def">
+                        <a class="sub_tab_item3" href="#" onclick="GetAdminInfo(); closePopup();">Update Image</a>
+                    </span>
+                    <!-- <span data-button="tab4" class="def">
+                        <a class="sub_tab_item4" href="#" onclick="GetDiagInfo(); closePopup();">Diagnostics</a>
+                    </span> -->
+                    <span data-button="tab5" class="def"
+                        style="height: auto; position: fixed;  top: calc(100% - 70px);">
+                        <a class="sub_tab_item5" href="#" onclick="GetAdminInfo(); showPopup(true);">Admin Setting</a>
+                        <!-- <a class="sub_tab_item5" href="#">Admin Setting</a> -->
+                    </span>
+                    <!-- <div>
+                    <button onclick="showPopup(true)">Test</button>
+                </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="content_view_grid">
+            <div id="tab1" class="tabcontent current">
+                <div class="header_div">
+                    <strong class="content_header_strong">G32 - System Information</strong>
+                    <div class="header_div2">
+                        <label class="refresh_btn refresh_btn_pos" for="sys_ref_btn">REFRESH</label>
+                        <input id="sys_ref_btn" name="progcheck" type="button" value="reset" onclick="GetSysInfo()"
+                            style="display:none">
+
+                    </div>
+                </div>
+                <div style="width: 100%; padding-top: 0.1px;">
+
+                    <div>
+                        <form id="product_info1" class="content_border" method="POST" enctype="multipart/form-data"
+                            style="height: 200px;">
+                            <div id="tt" class="content_grid_wrapper">
+
+                                <div class="content_title" style="height: 40px;">
+
+                                    <strong class="content_title_strong"
+                                        style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">1.
+                                        Product Information</strong>
+                                </div>
+                                <div class="content_body" style="height: 160px;">
+                                    <div class="box_ul" style="line-height: 160%; align-items: center; height: 120px;">
+                                        <li class="subtitle_li" style="padding-top: 5px;">Serial Number</li>
+                                        <li id="serial" class="content_li">&nbsp;</li>
+                                        <br style="line-height: 50%;">
+                                        <li class="subtitle_li">Manufacturing Date</li>
+                                        <li id="mdate" class="content_li">&nbsp;</li>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </form>
+
+                        <form id="product_info2" class="content_border" method="POST" enctype="multipart/form-data"
+                            style="height: 320px; ">
+                            <div class="content_grid_wrapper">
+                                <div class="content_title" style="height: 40px;">
+                                    <strong class="content_title_strong"
+                                        style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">2.
+                                        Firmware Information</strong>
+                                </div>
+                                <div class="content_body" style="height: 280px;">
+                                    <div class="box_ul" style="line-height: 160%; align-items: center; height: 240px;">
+                                        <li class="subtitle_li" style="padding-top: 5px;">Firmware & FPGA Version</li>
+                                        <li id="ffver" class="content_li">&nbsp;</li>
+                                        <br style="line-height: 50%;">
+                                        <li class="subtitle_li">Update Date</li>
+                                        <li id="udate" class="content_li">&nbsp;</li>
+                                        <br style="line-height: 50%;">
+                                        <li class="subtitle_li">Golden Image Version</li>
+                                        <li id="golden_version" class="content_li">&nbsp;</li>
+                                        <br style="line-height: 50%;">
+                                        <li class="subtitle_li">Golden Image Update Date</li>
+                                        <li id="golden_update_date" class="content_li">&nbsp;</li>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form id="product_info3" class="content_border" method="POST" enctype="multipart/form-data"
+                            style="height: 310px;">
+                            <div class="content_grid_wrapper">
+                                <div class="content_title" style="height: 40px;">
+                                    <strong class="content_title_strong"
+                                        style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">3.
+                                        Network Information</strong>
+                                </div>
+                                <div class="content_body" style="height: 270px;">
+                                    <div class="box_ul" style="line-height: 160%; align-items: center; height: 230;">
+                                        <div>
+                                            <li class="subtitle_li" style="padding-top: 5px;">Mac Address</li>
+                                            <li id="mac" class="content_li">&nbsp;</li>
+                                            <br style="line-height: 50%;">
+                                            <li class="subtitle_li">IP Address</li>
+                                            <li id="ip" class="content_li">&nbsp;</li>
+                                            <br style="line-height: 50%;">
+                                            <li class="subtitle_li">Subnet Mask</li>
+                                            <li id="subnetmask" class="content_li">&nbsp;</li>
+                                            <br style="line-height: 50%;">
+                                            <li class="subtitle_li">Gateway</li>
+                                            <li id="gate" class="content_li">&nbsp;</li>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="tab2" class="tabcontent">
+                <div class="header_div">
+                    <strong class="content_header_strong">G32 - H/W Configuration</strong>
+                    <div class="header_div2">
+                        <label class="refresh_btn refresh_btn_pos" for="hw_ref_btn">REFRESH</label>
+                        <input id="hw_ref_btn" name="progcheck" type="button" value="reset" onclick="RefreshHwInfo()"
+                            style="display:none">
+
+                        <label class="save_btn save_btn_pos" for="save_btn">APPLY</label>
+                        <input id="save_btn" name="progcheck" type="button" value="reset" onclick="SaveBtnClicked()"
+                            style="display:none">
+                    </div>
+                </div>
+
+                
+                <form id="product_info" class="content_border" method="POST" enctype="multipart/form-data"
+                    style="height: 200px;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">1.
+                                Hz Settings</strong>
+                        </div>
+                        <div class="content_body" style="height: 200px;">
+                            <div class="box_ul" style="line-height: 160%; align-items: center; height: 120px;">
+                                <ul class="horizontal">
+                                    <input type="radio" id="Hz_option10" name="hzoptions" value="option1">
+                                    <label for="option1">10Hz</label><br>
+                                    <input type="radio" id="Hz_option20" name="hzoptions" value="option2">
+                                    <label for="option2">20Hz</label><br>
+                                    <input type="radio" id="Hz_option25" name="hzoptions" value="option3">
+                                    <label for="option3">25Hz</label><br>
+                                    <br style="line-height: 20%;">
+                                    <label class="send_btn" for="snd_btn_hz">SEND</label>
+                                    <input id="snd_btn_hz" name="progcheck" type="button" value="reset"
+                                        onclick="SendHzOption()" style="display:none">
+                                </ul>
+
+                                 <br style="line-height: 50%;">
+
+
+                                <!-- <ul class="horizontal">
+                                    <li class="subtitle_li">Motor RPM</li>
+                                    <input id="rpm_input" class="number_input" type="text"
+                                        oninput="CheckIsDigit(this); CheckMinMax(this, 0, 10000);"
+                                        onchange="RpmInputChanged(this)" value="0" />
+                                </ul> 
+
+                                 <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">FOV Start Angle : </li>
+                                    <input id="fovstart_input" class="number_input" type="text" value="0"
+                                        oninput="CheckIsDigit(this); CheckMinMax(this, -180, 180);"
+                                        onchange="FovStartInputChanged(this)" />
+                                    <li class="subtitle_li">End Angle : </li>
+                                    <input id="fovend_input" class="number_input" type="text" maxlength="7" value="0"
+                                        oninput="CheckIsDigit(this); CheckMinMax(this, -180, 180);"
+                                        onchange="FovEndInputChanged(this)" />
+                                </ul>  
+
+                                 Disabled 
+                                 <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Phase Lock Offset : </li>
+                                    <input id="phaselock_input" class="number_input" type="text" value="0"
+                                        oninput="CheckIsDigit(this); CheckMinMax(this, 0, 1000);"
+                                        onchange="PhaseLockInputChanged(this)" />
+                                </ul>  -->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form id="product_info" class="content_border" method="POST" enctype="multipart/form-data"
+                    style="height: 310px;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">1.
+                                Network Settings</strong>
+                        </div>
+                        <div class="content_body" style="height: 240px;">
+                            <div class="box_ul" style="line-height: 160%; align-items: center; height: 235px;">
+                                <!-- Disabled -->
+                                <!-- <ul class="horizontal">
+                                    <li class="subtitle_li" style="padding-top: 5px;">DHCP ON/OFF</li>
+                                    <div id="dhcp_check_div" class="switch_div" style="display: inline;">
+                                        <label class="switch">
+                                            <input id="dhcp_checkbox" type="checkbox"
+                                                onclick="DhcpCheckboxChanged(this)">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <label id="dhcp_onoff" class="content_li toggle_p2">OFF</label>
+                                    </div>
+                                </ul> -->
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Protocol</li>
+                                    <select name="" id="protocol_select" onChange="ProtocolSelectBoxChanged()">
+                                        <option value="tcp">TCP</option>
+                                        <option value="udp">UDP</option>
+                                    </select>
+                                </ul>
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">IP Address</li>
+                                    <div class="net_set_input">
+                                        <input type="number" class="ip_input" id="ipv4_1" style="width: 50px;"
+                                            maxlength="3" oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);"
+                                            onkeydown="IsThereDotOrExponential(event.keyCode)" ; placeholder="xxx" />
+                                        <input type="number" class="ip_input" id="ipv4_2"
+                                            style="width: 50px; margin-left: 0px;" maxlength="3"
+                                            oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);" placeholder="xxx"
+                                            onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+                                        <input type="number" class="ip_input" id="ipv4_3"
+                                            style="width: 50px; margin-left: 0px;" maxlength="3"
+                                            oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);" placeholder="xxx"
+                                            onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+                                        <input type="number" class="ip_input" id="ipv4_4"
+                                            style="width: 50px; margin-left: 0px;" maxlength="3"
+                                            oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);" placeholder="xxx"
+                                            onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+                                    </div>
+                                </ul>
+
+                                </ul>
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Subnet Mask</li>
+                                    <div class="net_set_input">
+                                        <input type="number" class="ip_input" id="subnet_1" style="width: 50px;"
+                                            maxlength="3" oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);"
+                                            placeholder="xxx" onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+                                        <input type="number" class="ip_input" id="subnet_2"
+                                            style="width: 50px; margin-left: 0px;" maxlength="3"
+                                            oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);" placeholder="xxx"
+                                            onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+                                        <input type="number" class="ip_input" id="subnet_3"
+                                            style="width: 50px; margin-left: 0px;" maxlength="3"
+                                            oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);" placeholder="xxx"
+                                            onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+                                        <input type="number" class="ip_input" id="subnet_4"
+                                            style="width: 50px; margin-left: 0px;" maxlength="3"
+                                            oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);" placeholder="xxx"
+                                            onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+                                    </div>
+                                </ul>
+
+                                </ul>
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Gateway</li>
+                                    <div class="net_set_input">
+                                        <input type="number" class="ip_input" id="gateway_1" style="width: 50px;"
+                                            maxlength="3" oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);"
+                                            placeholder="xxx" onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+                                        <input type="number" class="ip_input" id="gateway_2"
+                                            style="width: 50px; margin-left: 0px;" maxlength="3"
+                                            oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);" placeholder="xxx"
+                                            onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+                                        <input type="number" class="ip_input" id="gateway_3"
+                                            style="width: 50px; margin-left: 0px;" placeholder="xxx" maxlength="3"
+                                            oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);"
+                                            onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+                                        <input type="number" class="ip_input" id="gateway_4"
+                                            style="width: 50px; margin-left: 0px;" maxlength="3"
+                                            oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);" placeholder="xxx"
+                                            onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+                                    </div>
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Port</li>
+                                    <div class="net_set_input">
+                                        <input type="number" class="ip_input" id="port_1" style="width: 50px;"
+                                            maxlength="5" oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);"
+                                            placeholder="xxx" onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+
+                                    </div>
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Target Server IP Address</li>
+                                    <div class="net_set_input">
+                                        <input type="number" class="ip_input" id="ts_ipv4_1" style="width: 50px;"
+                                            maxlength="3" oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);"
+                                            onkeydown="IsThereDotOrExponential(event.keyCode)" ; placeholder="xxx" />
+                                        <input type="number" class="ip_input" id="ts_ipv4_2"
+                                            style="width: 50px; margin-left: 0px;" maxlength="3"
+                                            oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);" placeholder="xxx"
+                                            onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+                                        <input type="number" class="ip_input" id="ts_ipv4_3"
+                                            style="width: 50px; margin-left: 0px;" maxlength="3"
+                                            oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);" placeholder="xxx"
+                                            onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+                                        <input type="number" class="ip_input" id="ts_ipv4_4"
+                                            style="width: 50px; margin-left: 0px;" maxlength="3"
+                                            oninput="CheckIsPositiveDigit(this);maxLengthCheck(this);" placeholder="xxx"
+                                            onkeydown="IsThereDotOrExponential(event.keyCode)" ; />
+                                    </div>
+                                </ul>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form id="product_info" class="content_border" method="POST" enctype="multipart/form-data"
+                style="height: 200px;">
+                <div class="content_grid_wrapper">
+                    <div class="content_title" style="height: 40px;">
+                        <strong class="content_title_strong"
+                            style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">2.
+                            Stop Settings</strong>
+                    </div>
+                    <div class="content_body" style="height: 200px;">
+                        <div class="box_ul" style="line-height: 160%; align-items: center; height: 120px;">
+                            <ul class="horizontal">
+                                <input type="radio" id="stop_option0" name="stopoptions" value="stopoption0">
+                                <label for="stopoption0">1,2,3 Stop</label><br>
+                                <input type="radio" id="stop_option1" name="stopoptions" value="stopoption1">
+                                <label for="stopoption1">1,2 Stop</label><br>
+                                <input type="radio" id="stop_option2" name="stopoptions" value="stopoption2">
+                                <label for="stopoption2">1 Stop</label><br>
+                                <br style="line-height: 20%;">
+                                <label class="send_btn" for="snd_btn_stop">SEND</label>
+                                <input id="snd_btn_stop" name="progcheck" type="button" value="reset"
+                                    onclick="SendStopOption()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <form id="product_info" class="content_border" method="POST" enctype="multipart/form-data"
+            style="height: 180px;">
+            <div class="content_grid_wrapper">
+                <div class="content_title" style="height: 40px;">
+                    <strong class="content_title_strong"
+                        style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">2.
+                        Phase Settings</strong>
+                </div>
+                <div class="content_body" style="height: 200px;">
+                    <div class="box_ul" style="line-height: 160%; align-items: center; height: 100px;">
+                        <ul class="horizontal">
+                            <li class="subtitle_li">Start Phase Lock </li>
+                            <div class="switch_div" style="display: inline;">
+                                <label id="isphase_onoff_cb" class="switch">
+                                    <input id="isphase_onoff_checkbox" type="checkbox"
+                                        onclick="SendPhaseLock()">
+                                    <span class="slider round"></span>
+                                </label>
+                                <label id="isphase_onoff" class="content_li toggle_p2">OFF</label>
+                            </div>
+                        </ul>
+
+                        <br style="line-height: 50%;">
+                        <ul class="horizontal">
+                            <li class="subtitle_li">PLL Deg : </li>
+                            <input id="phase_deg" class="number_input" type="number" min="-60" max="60"
+                                value="0" />
+                            <label class="send_btn" for="phase_deg_send_btn">SEND</label>
+                            <input id="phase_deg_send_btn" name="progcheck" type="button" value="reset"
+                                onclick="SendPhaseDeg()" style="display:none">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+            </div>
+            <div id="tab3" class="tabcontent">
+                <div class="header_div">
+                    <strong class="content_header_strong">G32 - Update Image</strong>
+                    <div class="header_div2">
+                        <label class="refresh_btn refresh_btn_pos" for="update_ref_btn">REFRESH</label>
+                        <input id="update_ref_btn" name="progcheck" type="button" value="reset"
+                            onclick="RefreshBtnClicked()" style="display:none">
+
+                    </div>
+                </div>
+                <form id="Upload" class="content_border" method="POST" enctype="multipart/form-data"
+                    style="height: 330px;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">1.
+                                Update Firmware</strong>
+                        </div>
+                        <div class="content_body" style="height: 120px;">
+                            <div class="box_ul" style="line-height: 160%; align-items: center; height: 110px;">
+                                <ul class="horizontal" style="padding-top: 20px;">
+                                    <li class="subtitle_li">File Name :&nbsp;</li>
+                                    <label id="file_tb" class="file_textblock" for="flash_data">Choose File</label>
+                                    <form id="Upload" method="POST" enctype="multipart/form-data">
+                                        <input id="flash_data" name="flash" type="file" size="50" required="required"
+                                            accept=".bin" onchange="FileChanged(this, 'name')" style="display:none;">
+                                        <label class="update_btn" for="upload_btn">UPDATE</label>
+                                        <input id="upload_btn" class="update_btn" name="upload" type="button"
+                                            value="Update" onclick="SetUPLog(true); UploadDataCheck()" style="display:none;">
+                                    </form>
+
+                                    <label class="reboot_btn" for="reset_btn">REBOOT</label>
+                                    <input id="reset_btn" type="button" value="reset" onclick="Reset()"
+                                        style="display:none">
+                                </ul>
+                                <li class="content_body" style="height: 20px;">
+                                    <!-- <progress style="width:98%; margin-left: 10px; display: inline;" id="progressBar"
+                                        value="0" max="100"> -->
+                                    <div class="progress-bar blue stripes">
+                                        <span id="prog_span"></span>
+                                        <div style="display: block;">
+                                            <label id="prog_label" style="float: left;"></label>
+                                            <label id="prog_per_label" style="float:right"></label>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                
+                            </div>
+                            <div class="box_ul" style="line-height: 160%; align-items: center; height: 90px;">
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li id="boot_done" class="subtitle_li" style="background-color:rgb(255, 255, 0); width : 90px;">None</li>
+
+                            </ul>
+                            <br style="line-height: 80%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Boot Image Name : </li>
+                                <li class="subtitle_li" id="boot_image_name2"
+                                    style="width: 200px;">None.</li>
+                            </ul>
+                        </div>
+                        </div>
+                        
+                    </div>
+
+                </form>
+            </div>
+            <div id="tab4" class="tabcontent">
+                <div class="header_div">
+                    <strong class="content_header_strong">G32 - Diagnostics</strong>
+                    <div class="header_div2">
+                        <label class="refresh_btn refresh_btn_pos" for="diag_ref_btn">REFRESH</label>
+                        <input id="diag_ref_btn" name="progcheck" type="button" value="reset" onclick="GetDiagInfo()"
+                            style="display:none">
+
+                    </div>
+                </div>
+                <form id="product_info" class="content_border" method="POST" enctype="multipart/form-data"
+                    style="height: 180;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">1.
+                                Processing Board</strong>
+                        </div>
+                        <div class="content_body" style="height: 140;">
+                            <div class="box_ul"
+                                style="border:0px; line-height: 160%; align-items: center; height: 100; display: flex;">
+                                <table id="proc_table" class="table">
+                                    <caption>표 제목</caption>
+                                    <tr>
+                                        <th>HV</th>
+                                        <th>A/D TD</th>
+                                        <th>Temp</th>
+                                        <th>5v</th>
+                                        <th>2.5v</th>
+                                        <th>3.3v</th>
+                                        <th>5v(Raw)</th>
+                                        <th>1.5v</th>
+                                        <th>VHV</th>
+                                    </tr>
+                                    <tr>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form id="product_info" class="content_border" method="POST" enctype="multipart/form-data"
+                    style="height: 180;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">2.
+                                Detection Board</strong>
+                        </div>
+                        <div class="content_body" style="height: 140;">
+                            <div class="box_ul"
+                                style="border:0px; line-height: 160%; align-items: center; height: 100; display: flex;">
+                                <table id="detect_table" class="table">
+                                    <caption>표 제목</caption>
+                                    <tr>
+                                        <th>HV</th>
+                                        <th>A/D TD</th>
+                                        <th>Temp</th>
+                                        <th>5v</th>
+                                        <th>2.5v</th>
+                                        <th>3.3v</th>
+                                        <th>5v(Raw)</th>
+                                        <th>1.5v</th>
+                                        <th>VHV</th>
+                                    </tr>
+                                    <tr>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form id="product_info" class="content_border" method="POST" enctype="multipart/form-data"
+                    style="height: 180;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">3.
+                                Emission Board</strong>
+                        </div>
+                        <div class="content_body" style="height: 140;">
+                            <div class="box_ul"
+                                style="border:0px; line-height: 160%; align-items: center; height: 100; display: flex;">
+                                <table id="emission_table" class="table">
+                                    <caption>표 제목</caption>
+                                    <tr>
+                                        <th>HV</th>
+                                        <th>A/D TD</th>
+                                        <th>Temp</th>
+                                        <th>5v</th>
+                                        <th>2.5v</th>
+                                        <th>3.3v</th>
+                                        <th>5v(Raw)</th>
+                                        <th>1.5v</th>
+                                        <th>VHV</th>
+                                    </tr>
+                                    <tr>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form id="product_info" class="content_border" method="POST" enctype="multipart/form-data"
+                    style="height: 180;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">4.
+                                Main Power Board</strong>
+                        </div>
+                        <div class="content_body" style="height: 140;">
+                            <div class="box_ul"
+                                style="border:0px; line-height: 160%; align-items: center; height: 100; display: flex;">
+                                <table id="main_table" class="table">
+                                    <caption>표 제목</caption>
+                                    <tr>
+                                        <th>HV</th>
+                                        <th>A/D TD</th>
+                                        <th>Temp</th>
+                                        <th>5v</th>
+                                        <th>2.5v</th>
+                                        <th>3.3v</th>
+                                        <th>5v(Raw)</th>
+                                        <th>1.5v</th>
+                                        <th>VHV</th>
+                                    </tr>
+                                    <tr>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                        <td>111.1V</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div id="tab5" class="tabcontent">
+                <div class="header_div">
+                    <strong class="content_header_strong">G32 - Admin Setting</strong>
+                    <div class="header_div2">
+                        <label class="refresh_btn refresh_btn_pos" for="admin_ref_btn">REFRESH</label>
+                        <input id="admin_ref_btn" name="progcheck" type="button" value="reset" onclick="GetAdminInfo()"
+                            style="display:none">
+
+                        <label class="save_btn save_btn_pos" for="save_admin_btn">APPLY</label>
+                        <input id="save_admin_btn" name="progcheck" type="button" value="reset"
+                            onclick="SaveAdminInfo()" style="display:none">
+                    </div>
+                </div>
+
+                <form id="product_info" class="content_border" method="POST" enctype="multipart/form-data"
+                    style="height: 380px;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">1.
+                                System Settings</strong>
+                        </div>
+                        <div class="content_body" style="height: 350px;">
+                            <div class="box_ul" style="line-height: 160%; align-items: center; height: 300px;">
+
+                                <ul class="horizontal">
+                                    <li class="subtitle_li" style="padding-top: 5px;">Serial Number</li>
+                                    <input type="text" class="number_input" id="admin_serial_input"
+                                        style="width: 200px;" />
+                                </ul>
+
+                                <br style="line-height: 50%;">
+
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Manufacturing Date : </li>
+                                    <input type="text" class="number_input" id="admin_manufact_date_input"
+                                        onkeyup="CheckDate(this)" style="width: 200px;" placeholder="MM/DD/YYYY" />
+                                </ul>
+
+
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Firmware Version : </li>
+                                    <input type="text" class="number_input" id="admin_firm_ver_input"
+                                        style="width: 100px;" disabled/>
+                                    <li class="subtitle_li">FPGA Version : </li>
+                                    <input type="text" class="number_input" id="admin_fpga_ver_input"
+                                        style="width: 100px;" disabled/>
+                                </ul>
+
+                                <br style="line-height: 50%;">
+
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Firmware Update Date : </li>
+                                    <input type="text" class="number_input" id="admin_update_date_input"
+                                        onkeyup="CheckDate(this)" style="width: 200px;" placeholder="MM/DD/YYYY" disabled/>
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Golden Image Version : </li>
+                                    <input type="text" class="number_input" id="admin_golden_ver_input"
+                                        style="width: 100px;" />
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Golden Image Update Date : </li>
+                                    <input type="text" class="number_input" id="admin_golden_update_date_input"
+                                        onkeyup="CheckDate(this)" style="width: 200px;" placeholder="MM/DD/YYYY" disabled/>
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Mac Address : </li>
+                                    <input type="text" class="number_input" id="admin_mac_input"
+                                        onkeyup="CheckMacAddr(this)" style="width: 200px;"
+                                        placeholder="XX:XX:XX:XX:XX:XX" />
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Boot Image Name : </li>
+                                    <li class="subtitle_li" id="boot_image_name"
+                                        style="width: 200px;">None.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form id="Upload" class="content_border" method="POST" enctype="multipart/form-data"
+                    style="height: 190px;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">2.
+                                Update Golden Image</strong>
+                        </div>
+                        <div class="content_body" style="height: 130px;">
+                            <div class="box_ul" style="line-height: 160%; align-items: center; height: 110px;">
+                                <ul class="horizontal" style="padding-top: 20px;">
+                                    <li class="subtitle_li">File Name :&nbsp;</li>
+                                    <label id="file_tb_golden" class="file_textblock" for="flash_data_golden">Choose
+                                        File</label>
+                                    <form id="Upload" method="POST" enctype="multipart/form-data">
+                                        <input id="flash_data_golden" name="flash" type="file" size="50"
+                                            required="required" accept=".bin"
+                                            onchange="GoldenImageFileChanged(this, 'name')" style="display:none;">
+                                        <label class="update_btn" for="upload_btn_golden">UPDATE</label>
+                                            <input id="upload_btn_golden" class="update_btn" name="upload" type="button"
+                                            value="Update"  onclick="SetUPGoldenLog(true); UploadGoldenImageCheck()" style="display:none;">
+                                    </form>
+
+                                    <label class="reboot_btn" for="reset_btn_golden">REBOOT</label>
+                                    <input id="reset_btn_golden" name="progcheck" type="button" value="reset"
+                                        onclick="Reset()" style="display:none">
+                                </ul>
+                                <li class="content_body" style="height: 20px;">
+                                    <div class="progress-bar blue stripes">
+                                        <span id="prog_span_golden"></span>
+                                        <div style="display: block;">
+                                            <label id="prog_label_golden" style="float: left;"></label>
+                                            <label id="prog_per_label_golden" style="float:right"></label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+                <form id="product_info" class="content_border" method="POST" enctype="multipart/form-data"
+                    style="height: 170px;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">3.
+                                Change H/W Offset</strong>
+                        </div>
+                        <div class="content_body" style="height: 130px;">
+                            <div class="box_ul" style="line-height: 160%; align-items: center; height: 90px;">
+                                <br style="line-height: 70%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Recent Command : </li>
+                                    <label class="number_label" name="offset1">0</label>
+                                    <label class="number_label" name="offset2">0</label>
+                                    <label class="number_label" name="offset3">0</label>
+
+
+
+                                </ul>
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Offset Command : </li>
+                                    <input id="offset1" class="number_input" type="number" min="-1000" max="10000"
+                                        value="0" />
+                                    <input id="offset2" class="number_input" type="number" min="-1000" max="10000"
+                                        value="0" />
+                                    <input id="offset3" class="number_input" type="number" min="-1000" max="10000"
+                                        value="0" />
+                                    <label class="send_btn" for="snd_btn">SEND</label>
+                                    <input id="snd_btn" name="progcheck" type="button" value="reset"
+                                        onclick="SendOffset()" style="display:none">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form id="product_info" class="content_border" method="POST" enctype="multipart/form-data"
+                    style="height: 910px;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">4.
+                                Filter Settings</strong>
+                        </div>
+                        <div class="content_body" style="height: 280px;">
+                            <div class="box_ul" style="line-height: 160%; align-items: center; height: 830px;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li" style="padding-top: 5px;">Exhaust Gas Filter ON/OFF </li>
+                                    <div class="switch_div" style="display: inline;">
+                                        <label id="noise_onoff_cb" class="switch">
+                                            <input id="noise_checkbox2" type="checkbox"
+                                                onclick="NoiseFilterCheckboxChanged2()">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <label id="noise_onoff2" class="content_li toggle_p2">OFF</label>
+                                    </div>
+                                </ul>
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li" style="padding-top: 5px;">Noise Filter2 ON/OFF</li>
+                                    <div class="switch_div" style="display: inline;">
+                                        <label id="noise_onoff_cb3" class="switch">
+                                            <input id="noise_checkbox3" type="checkbox"
+                                                onclick="NoiseFilterCheckboxChanged3()">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <label id="noise_onoff3" class="content_li toggle_p2">OFF</label>
+                                    </div>
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li" style="padding-top: 5px;">New Noise Filter ON/OFF</li>
+                                    <div class="switch_div" style="display: inline;">
+                                        <label id="noise_onoff_cb4" class="switch">
+                                            <input id="noise_checkbox4" type="checkbox"
+                                                onclick="NoiseFilterCheckboxChanged4()">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <label id="noise_onoff4" class="content_li toggle_p2">OFF</label>
+                                    </div>
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li" style="padding-top: 5px;">Voltage Threshold Filter ON/OFF
+                                    </li>
+                                    <div class="switch_div" style="display: inline;">
+                                        <label id="voltage_onoff_cb" class="switch">
+                                            <input id="voltage_checkbox2" type="checkbox"
+                                                onclick="VoltageFilterCheckboxChanged2()">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <label id="voltage_onoff2" class="content_li toggle_p2">OFF</label>
+                                    </div>
+                                </ul>
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Noise Percent : </li>
+                                    <input id="noise_percent" class="number_input" type="number" min="-1000" max="10000"
+                                        value="0" />
+                                    <label class="send_btn" for="snd_btn2">SEND</label>
+                                    <input id="snd_btn2" name="progcheck" type="button" value="reset"
+                                        onclick="SendNoisePercent()" style="display:none">
+                                </ul>
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Vth Sensitivity : </li>
+                                    <input id="vth_sensitivity" class="number_input" type="number" min="-1000"
+                                        max="10000" value="0" />
+                                    <label class="send_btn" for="snd_btn3">SEND</label>
+                                    <input id="snd_btn3" name="progcheck" type="button" value="reset"
+                                        onclick="SendVthSensitivity()" style="display:none">
+                                </ul>
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Num Of Near Valid Points : </li>
+                                    <input id="valid_point_cnt" class="number_input" type="number" min="-1000"
+                                        max="10000" value="0" />
+                                    <label class="send_btn" for="snd_btn4">SEND</label>
+                                    <input id="snd_btn4" name="progcheck" type="button" value="reset"
+                                        onclick="SendValidPointCnt()" style="display:none">
+                                </ul>
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Limit Of Noise Count : </li>
+                                    <input id="noise_cnt_limit" class="number_input" type="number" min="-1000"
+                                        max="10000" value="0" />
+                                    <label class="send_btn" for="noise_limit_send_btn">SEND</label>
+                                    <input id="noise_limit_send_btn" name="progcheck" type="button" value="reset"
+                                        onclick="SendNoiseLimitCnt()" style="display:none">
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Min Vth : </li>
+                                    <input id="min_vth" class="number_input" type="number" min="-1000" max="10000"
+                                        value="0" />
+                                    <label class="send_btn" for="min_vth_send_btn">SEND</label>
+                                    <input id="min_vth_send_btn" name="progcheck" type="button" value="reset"
+                                        onclick="SendMinVth()" style="display:none">
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Current Vth : </li>
+                                    <li id="current_vth" class="subtitle_li">-</li>
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li" style="padding-top: 5px;">VNoise Filter ON/OFF
+                                    </li>
+                                    <div class="switch_div" style="display: inline;">
+                                        <label id="vnoise_onoff_cb" class="switch">
+                                            <input id="vnoise_checkbox" type="checkbox"
+                                                onclick="VNoiseFilterCheckboxChanged()">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <label id="vnoise_onoff" class="content_li toggle_p2">OFF</label>
+                                    </div>
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li" style="padding-top: 5px;">Remove Ghost Filter ON/OFF
+                                    </li>
+                                    <div class="switch_div" style="display: inline;">
+                                        <label id="remove_ghost_onoff_cb" class="switch">
+                                            <input id="remove_ghost_checkbox" type="checkbox"
+                                                onclick="RemoveGhostCheckboxChanged()">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <label id="remove_ghost_onoff" class="content_li toggle_p2">OFF</label>
+                                    </div>
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Intensity Threshold Filter : </li>
+                                    <input id="inten_vth" class="number_input" type="number" min="-1000" max="10000"
+                                        value="0" />
+                                    <label class="send_btn" for="inten_vth_send_btn">SEND</label>
+                                    <input id="inten_vth_send_btn" name="progcheck" type="button" value="reset"
+                                        onclick="SendIntenVth()" style="display:none">
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">FIR Filter ON/OFF</li>
+                                    <div class="switch_div" style="display: inline;">
+                                        <label id="fir_onoff_cb" class="switch">
+                                            <input id="fir_checkbox" type="checkbox"
+                                                onclick="FIRCheckboxChanged()">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <label id="fir_onoff" class="content_li toggle_p2">OFF</label>
+                                    </div>
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">FIR VRemove Settings :</li>
+                                    <div class ="input-wrapper" style="margin-left: 15px;">
+                                        <div>
+                                            <script>
+                                                document.write(`<input id="FIR_Vthreshold1" type="text" placeholder="threshold1" size="5">`);
+                                                document.write(`<input id="FIR_Vthreshold2" type="text" placeholder="threshold2" size="5">`);
+
+                                                document.write(`<input id="FIR_Vdistance1" type="text" placeholder="distance1" size="5">`);
+                                                document.write(`<input id="FIR_Vdistance2" type="text" placeholder="distance2" size="5">`);
+
+                                                document.write(`<input id="FIR_Vcount1" type="text" placeholder="count1" size="5">`);
+                                                document.write(`<input id="FIR_Vcount2" type="text" placeholder="count2" size="5">`);
+
+                                                document.write(`<input id="FIR_Vmaxcount" type="text" placeholder="maxcount" size="5">`);
+
+                                                document.write(`<br>`);
+
+                                                document.write(`<input id="FIR_VCOEF1" type="text" placeholder="COEF1" size="5">`);
+                                                document.write(`<input id="FIR_VCOEF2" type="text" placeholder="COEF2" size="5">`);
+                                                document.write(`<input id="FIR_VCOEF3" type="text" placeholder="COEF3" size="5">`);
+                                                document.write(`<input id="FIR_VCOEF4" type="text" placeholder="COEF4" size="5">`);
+                                                document.write(`<input id="FIR_VCOEF5" type="text" placeholder="COEF5" size="5">`);
+                                                document.write(`<input id="FIR_VCOEF6" type="text" placeholder="COEF6" size="5">`);
+
+
+                                                document.write(`<input id="FIR_V" type="text" placeholder="ISON" size="5">`);
+                                            </script>
+                                        </div>
+                                        <button class="save-Vbutton" onclick="saveVFIRs()">Save</button>
+                                    </div>
+                                </ul>
+
+                                <ul class="horizontal"></ul>
+                                <ul class="horizontal"></ul>
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">FIR Smoothing Settings :</li>
+                                    <div class ="input-wrapper" style="margin-left: 15px;">
+                                        <div>
+                                            <script>
+                                                document.write(`<input id="FIR_threshold1" type="text" placeholder="threshold1" size="5">`);
+                                                document.write(`<input id="FIR_threshold2" type="text" placeholder="threshold2" size="5">`);
+
+                                                document.write(`<input id="FIR_distance1" type="text" placeholder="distance1" size="5">`);
+                                                document.write(`<input id="FIR_distance2" type="text" placeholder="distance2" size="5">`);
+
+                                                document.write(`<input id="FIR_count1" type="text" placeholder="count1" size="5">`);
+                                                document.write(`<input id="FIR_count2" type="text" placeholder="count2" size="5">`);
+
+                                                document.write(`<input id="FIR_maxcount" type="text" placeholder="maxcount" size="5">`);
+                                                document.write(`<br>`);
+
+                                                document.write(`<input id="FIR_COEF1" type="text" placeholder="COEF1" size="5">`);
+                                                document.write(`<input id="FIR_COEF2" type="text" placeholder="COEF2" size="5">`);
+                                                document.write(`<input id="FIR_COEF3" type="text" placeholder="COEF3" size="5">`);
+                                                document.write(`<input id="FIR_COEF4" type="text" placeholder="COEF4" size="5">`);
+                                                document.write(`<input id="FIR_COEF5" type="text" placeholder="COEF5" size="5">`);
+                                                document.write(`<input id="FIR_COEF6" type="text" placeholder="COEF6" size="5">`);
+
+                                                document.write(`<input id="FIR_MAF" type="text" placeholder="ISMAFON" size="5">`);
+                                            </script>
+                                        </div>
+                                        <button class="save-button" onclick="saveFIRs()">Save</button>
+                                    </div>
+                                </ul>
+
+                                <ul class="horizontal"></ul>
+
+                                <ul class="horizontal"></ul>
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">FIR Ground Settings :</li>
+                                    <div class ="input-wrapper" style="margin-left: 15px;">
+                                        <div>
+                                            <script>
+                                                document.write(`<input id="FIR_Gthreshold1" type="text" placeholder="threshold1" size="5">`);
+                                                document.write(`<input id="FIR_Gthreshold2" type="text" placeholder="threshold2" size="5">`);
+
+                                                document.write(`<input id="FIR_Gdistance1" type="text" placeholder="distance1" size="5">`);
+                                                document.write(`<input id="FIR_Gdistance2" type="text" placeholder="distance2" size="5">`);
+
+                                                document.write(`<input id="FIR_Gcount1" type="text" placeholder="count1" size="5">`);
+                                                document.write(`<input id="FIR_Gcount2" type="text" placeholder="count2" size="5">`);
+
+                                                document.write(`<input id="FIR_Gmaxcount" type="text" placeholder="maxcount" size="5">`);
+
+                                                document.write(`<br>`);
+
+                                                document.write(`<input id="FIR_GCOEF1" type="text" placeholder="COEF1" size="5">`);
+                                                document.write(`<input id="FIR_GCOEF2" type="text" placeholder="COEF2" size="5">`);
+                                                document.write(`<input id="FIR_GCOEF3" type="text" placeholder="COEF3" size="5">`);
+                                                document.write(`<input id="FIR_GCOEF4" type="text" placeholder="COEF4" size="5">`);
+                                                document.write(`<input id="FIR_GCOEF5" type="text" placeholder="COEF5" size="5">`);
+                                                document.write(`<input id="FIR_GCOEF6" type="text" placeholder="COEF6" size="5">`);
+
+                                                document.write(`<input id="FIR_GMAF" type="text" placeholder="ISON" size="5">`);
+                                            </script>
+                                        </div>
+                                        <button class="save-Gbutton" onclick="saveGFIRs()">Save</button>
+                                    </div>
+                                </ul>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="content_border" style="height: 1045px;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">5.
+                                Other Settings</strong>
+                        </div>
+
+                        <div class="box_ul" style="line-height: 160%; align-items: center; height: 970px;">
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Propagation Delay : </li>
+                                <input id="propagation_delay" class="number_input" type="number" min="-1000" max="10000"
+                                    value="0" />
+                                <label class="send_btn" for="propagation_send_btn">SEND</label>
+                                <input id="propagation_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendPropagationDelay()" style="display:none">
+                            </ul>
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Horizontal Offset(Upper&Lower Channel) : </li>
+                                <input id="upper_offset" class="number_input" type="number" min="-1000" max="10000"
+                                    value="0" />
+                                <label class="send_btn" for="upper_offset_send_btn">SEND</label>
+                                <input id="upper_offset_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendUpperOffset()" style="display:none">
+                            </ul>
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Horizontal Offset(Lower Channel) : </li>
+                                <input id="lower_offset" class="number_input" type="number" min="-1000" max="10000"
+                                    value="0" />
+                                <label class="send_btn" for="lower_offset_send_btn">SEND</label>
+                                <input id="lower_offset_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendLowerOffset()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Total Encoder Offset : </li>
+                                <input id="total_enc_offset" class="number_input" type="number" min="-1000" max="1000"
+                                    value="0" />
+                                <label class="send_btn" for="total_enc_offset_send_btn">SEND</label>
+                                <input id="total_enc_offset_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendTotalEncOffset()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Total Start Encoder Offset : </li>
+                                <input id="total_start_enc_offset" class="number_input" type="number" min="-1000" max="1000"
+                                    value="0" />
+                                <label class="send_btn" for="total_start_enc_offset_send_btn">SEND</label>
+                                <input id="total_start_enc_offset_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendTotalStartEncOffset()" style="display:none">
+                            </ul>
+
+                            
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Total End Encoder Offset : </li>
+                                <input id="total_end_enc_offset" class="number_input" type="number" min="-1000" max="1000"
+                                    value="0" />
+                                <label class="send_btn" for="total_end_enc_offset_send_btn">SEND</label>
+                                <input id="total_end_enc_offset_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendTotalEndEncOffset()" style="display:none">
+                            </ul>
+
+                            <!-- <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Bottom Start Encoder Offset : </li>
+                                <input id="bottom_enc_offset" class="number_input" type="number" min="-1000" max="10000"
+                                    value="0" />
+                                <label class="send_btn" for="bottom_enc_offset_send_btn">SEND</label>
+                                <input id="bottom_enc_offset_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendBottomEncOffset()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Bottom End Encoder Offset : </li>
+                                <input id="bottom_end_enc_offset" class="number_input" type="number" min="-1000" max="10000"
+                                    value="0" />
+                                <label class="send_btn" for="bottom_end_enc_offset_send_btn">SEND</label>
+                                <input id="bottom_end_enc_offset_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendBottomEndEncOffset()" style="display:none">
+                            </ul> -->
+
+                            <!-- <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Top Start Encoder Offset : </li>
+                                <input id="top_enc_offset" class="number_input" type="number" min="-1000" max="10000"
+                                    value="0" />
+                                <label class="send_btn" for="top_enc_offset_send_btn">SEND</label>
+                                <input id="top_enc_offset_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendTopEncOffset()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Top End Encoder Offset : </li>
+                                <input id="top_end_enc_offset" class="number_input" type="number" min="-1000" max="10000"
+                                    value="0" />
+                                <label class="send_btn" for="top_end_enc_offset_send_btn">SEND</label>
+                                <input id="top_end_enc_offset_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendTopEndEncOffset()" style="display:none">
+                            </ul> -->
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Max Disatance : </li>
+                                <input id="max_distance" class="number_input" type="number" min="0" max="10000"
+                                    value="0" />
+                                <label class="send_btn" for="max_distance_send_btn">SEND</label>
+                                <input id="max_distance_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendMaxDistance()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Ch Delay2 : </li>
+                                <input id="ch_dly2" class="number_input" type="number" min="0" max="10000"
+                                    value="0" />
+                                <label class="send_btn" for="ch_dly2_send_btn">SEND</label>
+                                <input id="ch_dly2_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendChDly2()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Tr Delay : </li>
+                                <input id="tr_dly" class="number_input" type="number" min="0" max="50"
+                                    value="0" />
+                                <label class="send_btn" for="tr_dly_send_btn">SEND</label>
+                                <input id="tr_dly_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendTrDly()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Tf Delay : </li>
+                                <input id="tf_dly" class="number_input" type="number" min="0" max="50"
+                                    value="0" />
+                                <label class="send_btn" for="tf_dly_send_btn">SEND</label>
+                                <input id="tf_dly_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendTfDly()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">EM Pulse : </li>
+                                <input id="EM_pulse" class="number_input" type="number" min="0" max="999"
+                                    value="0" />
+                                <label class="send_btn" for="em_pulse_send_btn">SEND</label>
+                                <input id="em_pulse_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendEMPulse()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">RPM : </li>
+                                <input id="motor_rpm" class="number_input" type="number" min="0" max="3000"
+                                    value="0" />
+                                <label class="send_btn" for="motor_rpm_send_btn">SEND</label>
+                                <input id="motor_rpm_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendRPM()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Azimuth offset ON/OFF</li>
+                                <div class="switch_div" style="display: inline;">
+                                    <label id="azi_onoff_cb" class="switch">
+                                        <input id="azi_checkbox" type="checkbox"
+                                            onclick="AziOffsetCheckboxChanged()">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <label id="azi_onoff" class="content_li toggle_p2">OFF</label>
+                                </div>
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Temperature Cal ON/OFF</li>
+                                <div class="switch_div" style="display: inline;">
+                                    <label id="temper_onoff_cb" class="switch">
+                                        <input id="temper_checkbox" type="checkbox"
+                                            onclick="TemperatureAdjCheckboxChanged()">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <label id="temper_onoff" class="content_li toggle_p2">OFF</label>
+                                </div>
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Heat Control ON/OFF</li>
+                                <div class="switch_div" style="display: inline;">
+                                    <label id="heat_onoff_cb" class="switch">
+                                        <input id="heat_checkbox" type="checkbox"
+                                            onclick="HeatControlCheckboxChanged()">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <label id="heat_onoff" class="content_li toggle_p2">OFF</label>
+                                </div>
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Horizontal Resolution Calib ON/OFF</li>
+                                <div class="switch_div" style="display: inline;">
+                                    <label id="calib_onoff_cb" class="switch">
+                                        <input id="calib_checkbox" type="checkbox"
+                                            onclick="CalibCheckboxChanged()">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <label id="calib_onoff" class="content_li toggle_p2">OFF</label>
+                                </div>
+                            </ul>
+
+
+
+                            <!-- <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Distance Offset : </li>
+                                <input id="distance_offset" class="number_input" type="number" min="0" max="30000"
+                                    value="0" />
+                                <label class="send_btn" for="distance_offset_send_btn">SEND</label>
+                                <input id="distance_offset_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendDistanceOffset()" style="display:none">
+                            </ul> -->
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Horizontal Resolution : </li>
+                                <input id="fov_correction" class="number_input" type="number" min="0" max="30000"
+                                    value="0" />
+                                <label class="send_btn" for="fov_correction_send_btn">SEND</label>
+                                <input id="fov_correction_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendFovCorrection()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Minimum Detection Range: </li>
+                                <input id="Minimum_detectrange" class="number_input" type="number" min="0" max="999"
+                                    value="0" />
+                                <label class="send_btn" for="minimum_detectrange_send_btn">SEND</label>
+                                <input id="minimum_detectrange_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendMinimumDetectionRange()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Minimum Detection Bot Start: </li>
+                                <input id="Minimum_detectBotstart" class="number_input" type="number" min="0" max="999"
+                                    value="0" />
+                                <label class="send_btn" for="minimum_detect_botstart_send_btn">SEND</label>
+                                <input id="minimum_detect_botstart_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendMinimumDetectionBotStart()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Minimum Detection Top Start: </li>
+                                <input id="Minimum_detectTopstart" class="number_input" type="number" min="0" max="999"
+                                    value="0" />
+                                <label class="send_btn" for="minimum_detect_topstart_send_btn">SEND</label>
+                                <input id="minimum_detect_topstart_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendMinimumDetectionTopStart()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Minimum Detection Bot End: </li>
+                                <input id="Minimum_detectBotend" class="number_input" type="number" min="0" max="999"
+                                    value="0" />
+                                <label class="send_btn" for="minimum_detect_botend_send_btn">SEND</label>
+                                <input id="minimum_detect_botend_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendMinimumDetectionBotEnd()" style="display:none">
+                            </ul>
+
+                            
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Minimum Detection Top End: </li>
+                                <input id="Minimum_detectTopend" class="number_input" type="number" min="0" max="999"
+                                    value="0" />
+                                <label class="send_btn" for="minimum_detect_topend_send_btn">SEND</label>
+                                <input id="minimum_detect_topend_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendMinimumDetectionTopEnd()" style="display:none">
+                            </ul>
+
+
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Intensity Correction Filter ON/OFF</li>
+                                <div class="switch_div" style="display: inline;">
+                                    <label id="intensity_correction_onoff_cb" class="switch">
+                                        <input id="intensity_correction_checkbox" type="checkbox"
+                                            onclick="IntensityCorrectionCheckboxChanged()">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <label id="intensity_correction_onoff" class="content_li toggle_p2">OFF</label>
+                                </div>
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <!-- <ul class="horizontal">
+                                <li class="subtitle_li">Start Phase Lock </li>
+                                <div class="switch_div" style="display: inline;">
+                                    <label id="isphase_onoff_cb" class="switch">
+                                        <input id="isphase_onoff_checkbox" type="checkbox"
+                                            onclick="SendPhaseLock()">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <label id="isphase_onoff" class="content_li toggle_p2">OFF</label>
+                                </div>
+                            </ul> -->
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Is Phase Locked</li>
+                                <div class="switch_div" style="display: inline;">
+                                    <label id="phase_onoff_cb" class="switch">
+                                        <input id="phase_checkbox" type="checkbox" disabled>
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <label id="phase_onoff" class="content_li toggle_p2">LockFail</label>
+                                </div>
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Angle Err : </li>
+                                <li id="angle_err" class="subtitle_li">-</li>
+                            </ul>
+
+                            <!-- <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">PLL Deg : </li>
+                                <input id="phase_deg" class="number_input" type="number" min="-60" max="60"
+                                    value="0" />
+                                <label class="send_btn" for="phase_deg_send_btn">SEND</label>
+                                <input id="phase_deg_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendPhaseDeg()" style="display:none">
+                            </ul> -->
+
+                           
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <form id="product_info" class="content_border" method="POST" enctype="multipart/form-data"
+                    style="height: 640;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">6.
+                                Routing Delay</strong>
+                        </div>
+                        <div class="content_body" style="height: 560;">
+                            <div class="box_ul" style="border:0px; line-height: 100%; align-items: center; height: 100; display: flex;">
+                                <table id="routing_delay_table" style="display:table; table-layout:fixed;" class="table">
+                                    <thead>
+                                        <tr>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="box_ul" style="border:0px; line-height: 160%; align-items: center; height: 100; display: flex;">
+                                <table id="routing_delay_table2" style="display:table; table-layout:fixed;" class="table">
+                                    <thead>
+                                        <tr>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+
+                            <!-- HHJ -->
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Range 1, Range2 : </li>
+                                <input id="routing_range1" class="number_input" type="number" min="0" max="4095"
+                                value="0" />
+                                <input id="routing_range2" class="number_input" type="number" min="0" max="4095"
+                                value="0" />
+                                <label class="send_btn" for="snd_btn_routing_range">SEND</label>
+                                <input id="snd_btn_routing_range" name="progcheck" type="button" value="reset"
+                                    onclick="SaveRoutingRange()" style="display:none">
+                            </ul>
+                            <div class="box_ul" style="border:0px; line-height: 100%; align-items: center; height: 100; display: flex;">
+                                <table id="routing_delay_table3" style="display:table; table-layout:fixed;" class="table">
+                                    <thead>
+                                        <tr>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="box_ul" style="border:0px; line-height: 160%; align-items: center; height: 100; display: flex;">
+                                <table id="routing_delay_table4" style="display:table; table-layout:fixed;" class="table">
+                                    <thead>
+                                        <tr>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+
+                        
+                    </div>
+                </form>
+
+                <div class="content_border" style="height: 180;">
+                    <div class="content_title" style="height: 40px;">
+                        <strong class="content_title_strong"
+                            style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">7.
+                            Vth Settings</strong>
+                    </div>
+                    <div class="content_body" style="height: 140;">
+                        <div class="box_ul"
+                            style="border:0px; line-height: 160%; align-items: center; height: 100; display: flex;">
+                            <table id="channel_vth_table" style="display:table; table-layout:fixed;" class="table">
+                                <thead>
+                                    <tr>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- <div class="box_ul"
+                            style="border:0px; line-height: 160%; align-items: center; height: 100; display: flex;">
+                            <table id="channel_vth_table2" style="display:table; table-layout:fixed;" class="table">
+                                <thead>
+                                    <tr>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> -->
+                    </div>
+                </div>
+
+                <form id="product_info" class="content_border" method="POST" enctype="multipart/form-data"
+                    style="height: 280px;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">8.
+                                Routing Delay Calibration</strong>
+                        </div>
+                        <div class="box_ul" style="line-height: 160%; align-items: center; height: 210px;">
+                            <br style="line-height: 70%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Delay Calibration: </li>
+
+                                <label class="send_btn" for="test_send_btn">SEND</label>
+                                <input id="test_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendDelayCal()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 70%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Delay2 Calibration: </li>
+
+                                <label class="send_btn" for="Cal2_send_btn">SEND</label>
+                                <input id="Cal2_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendDelayCal2()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Add Routing Delay : </li>
+                                <input id="add_delay" class="number_input" type="number" min="-10000" max="10000"
+                                    value="0" />
+                                <label class="send_btn" for="add_send_btn">SEND</label>
+                                <input id="add_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendAddDelay()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Add Routing Delay2 : </li>
+                                <input id="add_delay2" class="number_input" type="number" min="-10000" max="10000"
+                                    value="0" />
+                                <label class="send_btn" for="add2_send_btn">SEND</label>
+                                <input id="add2_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendAddDelay2()" style="display:none">
+                            </ul>
+
+                            <br style="line-height: 50%;">
+                            <ul class="horizontal">
+                                <li class="subtitle_li">Fixed Distance Routing Delay : </li>
+                                <input id="fixed_distance" class="number_input" type="number" min="0" max="20"
+                                    value="0" />
+                                <label class="send_btn" for="fixed_send_btn">SEND</label>
+                                <input id="fixed_send_btn" name="progcheck" type="button" value="reset"
+                                    onclick="SendFixedDelay()" style="display:none">
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+
+
+                <form id="product_info" class="content_border" method="POST" enctype="multipart/form-data"
+                    style="height: 140px;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">9.
+                                Register Write Read</strong>
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px; color:crimson;">
+                                Use Carefully</strong>
+                        </div>
+                        <div class="content_body" style="height: 110px;">
+                            <div class="box_ul" style="line-height: 160%; align-items: center; height: 60px;">
+                                <br style="line-height: 70%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Address:</li>
+                                    <input type="text" class="number_input" id="register_addr" style="width: 120px;" />
+
+                                    <li class="subtitle_li">Val:</li>
+                                    <input type="text" class="number_input" id="register_val" style="width: 120px;" />
+
+                                    <label class="send_btn" for="reg_read_btn">Read</label>
+                                    <input id="reg_read_btn" name="progcheck" type="button" value="reset"
+                                        onclick="SendRegRead()" style="display:none">
+
+                                    <label class="send_btn" for="reg_write_btn">Write</label>
+                                    <input id="reg_write_btn" name="progcheck" type="button" value="reset"
+                                        onclick="SendRegWrite()" style="display:none">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            
+                <div  class="content_border" style="height: 530px;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">9.
+                                Log Message</strong>
+                        </div>
+                        <div class="content_body" style="height: 110px;">
+                            <div class="box_ul" style="line-height: 160%; align-items: center; height: 450px;">
+                                <br style="line-height: 70%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Get Log Message  </li>
+    
+                                    <label class="send_btn" for="log_message_btn_id">SEND</label>
+                                    <input id="log_message_btn_id" name="log_message_btn" type="button" value="reset"
+                                        onclick="GetLogMessage()" style="display:none">
+                                </ul>
+    
+                                
+                                
+                                <!-- <div id="log_message_tb" style="margin-left:10px;margin-top:10px;height:400px;overflow:auto;width:1080px;"> -->
+                                <div id="log_message_tb" style="font-family: 'Courier New', monospace; margin-left:10px;margin-top:10px;height:400px;overflow:auto;width:1080px;">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="content_border" style="height: 850px;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong" style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">
+                                10. Dark Area Correction Param
+                            </strong>
+                        </div>
+                        
+                        <div class="content_body" style="height: 850px;">
+                            <div class="box_ul" style="line-height: 160%; align-items: center; height: 780px;">
+                                <br style="line-height: 70%;">
+                                <br style="line-height: 50%;">
+                
+                                <ul class="horizontal">
+                                    <li class="subtitle_li" style="padding-top: 5px;">Dark Area Correction ON/OFF:</li>
+                                    <div class="switch_div" style="display: inline;">
+                                        <label id="dark_area_correction_onoff_cb" class="switch">
+                                            <input id="dark_area_correction_checkbox_v2" type="checkbox" onclick="DarkAreaCorrectionCheckboxChangedv2()">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <label id="dark_area_correction_onoff_v2" class="content_li toggle_p2">OFF</label>
+                                    </div>
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">total_azimuth_cnt :</li>
+                                    <div class="input-wrapper" style="display: inline;">
+                                        <input id="total_azimuth_cnt" type="text" placeholder="Total Azimuth Count" size="10">
+                                    </div>
+                                </ul>
+                                
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">select_azimuth_group :</li>
+                                    <div class="input-wrapper" style="display: inline;">
+                                        <select id="select_azimuth_group" onchange="GetDarkAreaCorrectionSettingParams()">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">azimuth_range :</li>
+                                    <div class="input-wrapper" style="display: inline;">
+                                        <input id="azimuth_range_start" type="text" placeholder="Start" size="5">
+                                        ~
+                                        <input id="azimuth_range_end" type="text" placeholder="End" size="5">
+                                        <button class="save-button" onclick="SaveAzimuthRange()">Save</button>
+                                    </div>
+                                </ul>
+                
+                                
+                
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">target_channel_distance_ratio :</li>
+                                    <div class ="input-wrapper" style="margin-left: 15px;">
+                                        <div>
+                                            <script>
+                                                for (let i = 1; i <= 32; i++) {
+                                                    document.write(`<input id="target_channel_${i}" type="text" placeholder="ch${i}" size="2">`);
+                                                    if (i % 8 === 0) document.write(`<br>`);
+                                                }
+                                            </script>
+                                        </div>
+                                        <button class="save-button" onclick="saveTargetChannelDistanceRatio()">Save</button>
+                                    </div>
+                                </ul>
+                
+                                <ul class="horizontal"></ul>
+                                <ul class="horizontal"></ul>  
+                                <ul class="horizontal"></ul>
+                                <ul class="horizontal"></ul>
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">corrected_distance_ratio :</li>
+                                    <div class ="input-wrapper" style="margin-left: 15px;">
+                                        <div>
+                                            <script>
+                                                for (let i = 1; i <= 32; i++) {
+                                                    document.write(`<input id="corrected_channel_${i}" type="text" placeholder="ch${i}" size="2">`);
+                                                    if (i % 8 === 0) document.write(`<br>`);
+                                                }
+                                            </script>
+                                        </div>
+                                        <button class="save-button" onclick="saveCorrectedDistanceRatio()">Save</button>
+                                    </div>
+                                </ul>
+                
+                                <ul class="horizontal"></ul>
+                                <ul class="horizontal"></ul>  
+                                <ul class="horizontal"></ul>
+                                <ul class="horizontal"></ul>
+                
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">dark_area_search_channel :</li>
+                                    <div class ="input-wrapper" style="margin-left: 15px;">
+                                        <div>
+                                            <script>
+                                                for (let i = 1; i <= 32; i++) {
+                                                    document.write(`<input id="search_channel_${i}" type="text" placeholder="ch${i}" size="5">`);
+                                                    if (i % 8 === 0) document.write(`<br>`);
+                                                }
+                                            </script>
+                                        </div>
+                                        <button class="save-button" onclick="saveDarkAreaSearchChannel()">Save</button>
+                                    </div>
+                                </ul>
+                                <ul class="horizontal"></ul>
+                                <ul class="horizontal"></ul>  
+                                <ul class="horizontal"></ul>
+                                <ul class="horizontal"></ul>
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Dark Area Correction Dist Diff1 : </li>
+                                    <input id="dark_area_correction_parameter3" class="number_input" type="number" min="-1000" max="10000"
+                                        value="0" />
+                                    <label class="send_btn" for="dark_area_correction_parameter3_send_btn">SEND</label>
+                                    <input id="dark_area_correction_parameter3_send_btn" name="progcheck" type="button" value="reset"
+                                        onclick="SendDarkAreaCorrectionParameter3()" style="display:none">
+                                </ul>
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Dark Area Correction Dist Diff2 : </li>
+                                    <input id="dark_area_correction_parameter4" class="number_input" type="number" min="-1000" max="10000"
+                                        value="0" />
+                                    <label class="send_btn" for="dark_area_correction_parameter4_send_btn">SEND</label>
+                                    <input id="dark_area_correction_parameter4_send_btn" name="progcheck" type="button" value="reset"
+                                        onclick="SendDarkAreaCorrectionParameter4()" style="display:none">
+                                </ul>
+                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- 
+
+                <div  class="content_border" style="height: 140px;">
+                    <div class="content_grid_wrapper">
+                        <div class="content_title" style="height: 40px;">
+                            <strong class="content_title_strong"
+                                style="font-size: 17px; height:40px; vertical-align: middle; padding-left: 20px; padding-top:20px;">11.
+                                Azimuth Offset</strong>
+                        </div>
+                        
+                        <div class="content_body" style="height: 110px;">
+
+                            <div class="box_ul" style="line-height: 160%; align-items: center; height: 50px;">
+
+                                <br style="line-height: 50%;">
+                                <ul class="horizontal">
+                                    <li class="subtitle_li">Azimuth, Ch, Offset : </li>
+                                    <input id="azioffset" class="number_input" type="number" min="0" max="4095"
+                                        value="0" />
+                                    <input id="choffset" class="number_input" type="number" min="0" max="15"
+                                        value="0" />
+                                    <input id="disoffset" class="number_input" type="number" min="-1000" max="1000"
+                                        value="0" />
+                                    <label class="send_btn" for="snd_btn_azi">SEND</label>
+                                    <input id="snd_btn_azi" name="progcheck" type="button" value="reset"
+                                        onclick="AziOffset()" style="display:none">
+                                </ul>
+
+                                
+
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div> -->
+              
+            </div>
+        </div>
+        <script>
+        </script>
+    </div>
+</body>
+
+</html>
